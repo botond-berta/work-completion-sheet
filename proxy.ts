@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 // Auth protection is handled per-page via Clerk's auth() in server components.
 // This middleware is intentionally minimal to stay edge-compatible on Cloudflare Workers.
-export function middleware(_request: NextRequest) {
+export function proxy(_request: NextRequest) {
   return NextResponse.next();
 }
 
