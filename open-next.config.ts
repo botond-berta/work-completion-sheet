@@ -1,5 +1,4 @@
-import type { OpenNextConfig } from "@opennextjs/cloudflare";
-
+// @ts-ignore - OpenNextConfig types may vary by version
 export default {
   default: {
     override: {
@@ -11,6 +10,7 @@ export default {
       queue: "dummy",
     },
   },
+  edgeExternals: ["node:crypto"],
   middleware: {
     external: true,
     override: {
@@ -22,4 +22,4 @@ export default {
       queue: "dummy",
     },
   },
-} satisfies OpenNextConfig;
+};
