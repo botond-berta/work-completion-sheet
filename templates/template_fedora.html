@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FEDORA-EXTRA KFT. – Teljesítési Igazolás / Munkalap</title>
+<style>
+  :root{
+    --red:#8a1518;
+    --red-bright:#c0161a;
+    --olive:#7d8b2e;
+    --gold:#b89a2e;
+    --blue:#2f5aa0;
+    --ink:#111;
+    --line:#000;
+    --muted:#333;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;background:#e9e9e9;color:var(--ink);
+    font-family:"Times New Roman",Georgia,serif;}
+  .page{
+    background:#fff;width:210mm;min-height:297mm;margin:16px auto;padding:16mm 18mm;
+    box-shadow:0 2px 10px rgba(0,0,0,.25);position:relative;
+  }
+  .page-number{position:absolute;top:6mm;right:18mm;font-size:9pt;color:#000;}
+  .page-number.bottom{top:auto;bottom:8mm;left:0;right:0;text-align:center;}
+
+  /* ---------- Header ---------- */
+  header{display:flex;align-items:center;gap:14px;border-bottom:2px solid var(--red);padding-bottom:6px;}
+  .logo{width:70px;height:70px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#b02024,#6d0f12);
+    display:flex;align-items:center;justify-content:center;flex:0 0 auto;box-shadow:inset 0 0 6px rgba(0,0,0,.4);}
+  .logo svg{width:42px;height:42px;}
+  .brand{flex:1;}
+  .brand h1{margin:0;font-size:30pt;font-weight:bold;letter-spacing:.5px;color:#111;}
+  .brand .sub{margin-top:2px;font-size:13pt;font-weight:bold;letter-spacing:6px;color:#6b7a86;}
+
+  .lic{text-align:center;margin:8px 0 2px;font-size:11pt;color:var(--red-bright);}
+  .lic b{color:#111;font-weight:bold;}
+  .lic .num{color:var(--blue);font-weight:bold;}
+  .doc-title{text-align:center;font-size:16pt;font-weight:bold;color:var(--olive);margin:2px 0 14px;letter-spacing:.5px;}
+
+  /* ---------- Top fields ---------- */
+  .field-row{display:flex;align-items:flex-end;margin:10px 0;gap:10px;}
+  .field-row label{font-weight:bold;font-size:12pt;white-space:nowrap;}
+  .field-row .fill{flex:1;border-bottom:1px solid #000;min-height:20px;}
+  .field-row input.fill{border:none;border-bottom:1px solid #000;font:inherit;font-size:12pt;padding:0 4px 2px;outline:none;background:transparent;}
+
+  /* ---------- Engedély numbers ---------- */
+  .eng{margin:14px 0 4px;}
+  .eng .lead{color:var(--red-bright);font-weight:bold;font-size:11pt;margin-bottom:3px;}
+  .eng-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;font-size:9.5pt;text-align:center;}
+  .eng-grid .cell{display:flex;flex-direction:column;align-items:center;gap:2px;}
+  .eng-grid .no{font-weight:bold;}
+  .eng-grid label{display:inline-flex;align-items:center;gap:4px;}
+
+  /* ---------- Section heading ---------- */
+  .services-title{color:var(--olive);font-weight:bold;font-size:14pt;margin:16px 0 6px;letter-spacing:.3px;}
+
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+  .cat-head{display:flex;align-items:center;gap:8px;font-size:13pt;font-weight:bold;color:var(--red);margin-bottom:6px;}
+  .cat-head.blue{color:var(--red);}
+
+  .prod{margin:6px 0;font-size:9pt;}
+  .prod .name{font-weight:bold;display:inline-flex;align-items:flex-start;gap:5px;}
+  .prod .act{color:#000;margin-left:18px;display:block;line-height:1.25;}
+
+  .subhead{font-weight:bold;font-size:12pt;color:#111;margin:8px 0 4px;}
+  .antidote{font-weight:bold;font-size:11pt;margin:8px 0;}
+
+  .monitoring-head{display:flex;align-items:center;gap:8px;font-weight:bold;font-size:13pt;margin:10px 0 4px;}
+
+  /* Bed bug section spans full width */
+  .bedbug{margin-top:14px;}
+  .bedbug .cat-head{margin-bottom:8px;}
+  .bedbug-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;}
+
+  .sds{color:var(--blue);font-weight:bold;font-size:10pt;margin:14px 0 6px;letter-spacing:.3px;}
+
+  /* ---------- Bottom block: note + fixtures ---------- */
+  .bottom{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px;}
+  .note-box .lbl{font-weight:bold;font-size:9.5pt;margin-bottom:2px;}
+  .note-box textarea{width:100%;height:120px;border:1px solid #000;font:inherit;font-size:10pt;padding:4px;resize:vertical;}
+  .fixtures{font-size:10.5pt;}
+  .fixtures .head-row{display:grid;grid-template-columns:1fr 1fr;font-weight:bold;margin-bottom:4px;gap:10px;}
+  .fixtures .row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:3px 0;}
+  .fixtures .row .item{font-weight:bold;}
+  .fixtures input.cnt{width:38px;border:none;border-bottom:1px solid #000;text-align:center;font:inherit;}
+
+  /* ---------- Signatures ---------- */
+  .signs{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px;text-align:center;font-weight:bold;}
+  .signs .line{border-top:1px dotted #000;padding-top:4px;}
+
+  /* ---------- Checkbox ---------- */
+  input[type="checkbox"]{width:12px;height:12px;accent-color:#333;flex:0 0 auto;margin:2px 0 0;}
+  .cat-head input[type="checkbox"]{width:16px;height:16px;}
+
+  /* ---------- Page 2 ---------- */
+  .p2-title{color:var(--red);font-weight:bold;text-align:center;font-size:13pt;margin:6px 0 16px;letter-spacing:.5px;}
+  .p2 h2{font-size:12pt;color:#111;margin:16px 0 6px;}
+  .p2 h3{font-size:11pt;font-style:italic;margin:10px 0 4px;font-weight:bold;}
+  .p2 ul{margin:2px 0 8px;padding-left:22px;font-size:10.5pt;line-height:1.45;}
+  .p2 li{margin:3px 0;}
+
+  @media print{
+    body{background:#fff;}
+    .page{box-shadow:none;margin:0;width:auto;min-height:auto;page-break-after:always;}
+    textarea,input{border-color:#000 !important;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================= PAGE 1 ============================= -->
+<section class="page" id="page-1">
+  <div class="page-number">1/2</div>
+
+  <header>
+    <div class="logo" aria-label="FEDORA-EXTRA logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="10,25 90,25 50,80" fill="#fff"/>
+        <g stroke="#8a1518" stroke-width="3">
+          <line x1="50" y1="80" x2="30" y2="30"/>
+          <line x1="50" y1="80" x2="42" y2="30"/>
+          <line x1="50" y1="80" x2="50" y2="30"/>
+          <line x1="50" y1="80" x2="58" y2="30"/>
+          <line x1="50" y1="80" x2="70" y2="30"/>
+        </g>
+      </svg>
+    </div>
+    <div class="brand">
+      <h1>FEDORA-EXTRA KFT.</h1>
+      <div class="sub">Kártevőirtás és Fertőtlenítés</div>
+    </div>
+  </header>
+
+  <div class="lic"><b>Vállalkozás engedély száma:</b> <span class="num">CS-06/NEO/05170-3/2025</span></div>
+  <div class="doc-title">TELJESÍTÉSI IGAZOLÁS / MUNKALAP</div>
+
+  <div class="field-row">
+    <label>Munkaterület megnevezése:</label>
+    <input type="text" class="fill" name="munkaterulet_megnevezese">
+  </div>
+  <div class="field-row">
+    <label>Munkavégzés ideje:</label>
+    <input type="text" class="fill" name="munkavegzes_ideje">
+  </div>
+  <div class="field-row">
+    <label>Munkaterület mérete:</label>
+    <input type="text" class="fill" name="munkaterulet_merete">
+  </div>
+
+  <div class="eng">
+    <div class="lead">Mű.eng.számok:</div>
+    <div class="eng-grid">
+      <div class="cell"><label><input type="checkbox" name="eng_61820"><span class="no">-61820.</span></label><span>H.I.János.</span></div>
+      <div class="cell"><label><input type="checkbox" name="eng_281269"><span class="no">-281269.</span></label><span>K.Zsolt.</span></div>
+      <div class="cell"><label><input type="checkbox" name="eng_185378"><span class="no">-185378.</span></label><span>H.István</span></div>
+      <div class="cell"><label><input type="checkbox" name="eng_246888"><span class="no">-246888</span></label><span>Z.Viktor.</span></div>
+      <div class="cell"><label><input type="checkbox" name="eng_133515"><span class="no">-133515</span></label><span>R.Tamás.</span></div>
+      <div class="cell"><label><input type="checkbox" name="eng_307908"><span class="no">-307908.</span></label><span>P.György.</span></div>
+      <div class="cell"><label><input type="checkbox" name="eng_13901"><span class="no">-13901</span></label><span>B.Péter</span></div>
+    </div>
+  </div>
+
+  <div class="services-title">ELVÉGZETT SZOLGÁLTATÁS ÉS FELHASZNÁLT KÉSZÍTMÉNY-/EK:</div>
+
+  <div class="cols">
+    <!-- LEFT COLUMN -->
+    <div class="col-left">
+      <div class="cat-head"><span>ROVARIRTÁS:</span><input type="checkbox" name="cat_rovarirtas"></div>
+
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_magnum">Magnum® CSÓTÁNYÍRTÓ GÉL</span>
+        <span class="act">Hatóanyag: 2,51 % (21,5 g/kg) imidakloprid ,</span>
+      </div>
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_pertex">PERTEX rovarirtó konc. (kullancs)</span>
+        <span class="act">Hatóanyag: permetrin 3%, piperonil-butoxid 0,053%</span>
+      </div>
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_tathrin">TATHRIN EC</span>
+        <span class="act">Hatóanyag: 5 % cipermetrin + 2 % imidakloprid</span>
+      </div>
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_peststop10">PestStop 10 EC (kiűző szer)</span>
+        <span class="act">Hatóanyag: 10%, piperonil-butoxid 10% d-tetrametrin</span>
+      </div>
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_pyregreen">PYREGREEN</span>
+        <span class="act">Hatóanyag: 5 % természetes piretrin</span>
+      </div>
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_tetracip">TETRACIP EXTRA Rovarirtó koncentrátum</span>
+        <span class="act">Hatóanyag: permetrin 15%, piperonil-butoxid 7%, tetrametrin 0,8%</span>
+      </div>
+    </div>
+
+    <!-- RIGHT COLUMN -->
+    <div class="col-right">
+      <div class="cat-head"><span>RÁGCSÁLÓIRTÁS:</span><input type="checkbox" name="cat_ragcsaloirtas"></div>
+
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_protect_blokk">PROTECT® PRO PARAFFINOS RÁGCSÁLÓIRTÓ BLOKK</span>
+        <span class="act">Hatóanyag: 0,005 % (0,05 g/kg) bromadiolon</span>
+      </div>
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_protect_pep">PROTECT® PRO RÁGCSÁLÓIRTÓ PÉP</span>
+        <span class="act">Hatóanyag: 0,005 % (0,05 g/kg) bromadiolon</span>
+      </div>
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_kilrat">KILRAT® PLUS RÁGCSÁLÓIRTÓ PÉP</span>
+        <span class="act">Hatóanyag: 0,005 % (0,05 g/kg) brodifakum</span>
+      </div>
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_prokum">PROKUM PRO RÁGCSÁLÓIRTÓ GRANULÁTUM</span>
+        <span class="act">Hatóanyag: 0,005 % (0,05 g/kg) brodifakum</span>
+      </div>
+
+      <div class="antidote">ELLENSZER: K1 vitamin (inj.: KONAKION)</div>
+
+      <div class="monitoring-head"><span>Monitoring:</span><input type="checkbox" name="cat_monitoring"></div>
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_trapper">Trapper Glue ( Méreg mentes ).</span>
+      </div>
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_universal">Universal Ragasztós alaktest ( Méreg mentes )</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- BED BUG SECTION -->
+  <div class="bedbug">
+    <div class="cat-head"><span>ÁGYI POLOSKA IRTÁS:</span><input type="checkbox" name="cat_agyi_poloska"></div>
+    <div class="bedbug-grid">
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_peststop16">PestStop 16 EC</span>
+        <span class="act">Hatóanyag: 12% cifenotrin, 4% d-tetrametrin</span>
+      </div>
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_biopren">BIOPREN 6 EC® PLUS Ágyipoloska és bolhairtó koncentrátum</span>
+        <span class="act">Hatóanyag: s-metoprén 6,74%, Chrysanthemum cinerariaefolium kivonat</span>
+      </div>
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_sting">STING Rovarirtó koncentrátum</span>
+        <span class="act">Hatóanyag: permetrin 15%, pralletrin 2%</span>
+      </div>
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_gokilaht">Gokilaht 10MC Rovarirtó koncentrátum</span>
+        <span class="act">Hatóanyag: 10%, cifenotrin</span>
+      </div>
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_cimetrol">CIMETROL SUPER EW</span>
+        <span class="act">Hatóanyag: 5 % cipermetrin + 2 % imidakloprid</span>
+      </div>
+      <div class="prod">
+        <span class="name"><input type="checkbox" name="p_egyeb">Egyéb:</span>
+        <input type="text" class="fill" name="egyeb_text" style="width:70%;border:none;border-bottom:1px solid #000;font:inherit;">
+      </div>
+    </div>
+  </div>
+
+  <div class="sds">BIZTONSÁGI ADATLAPOK MELLÉKELVE</div>
+
+  <!-- NOTE + FIXTURES -->
+  <div class="bottom">
+    <div class="note-box">
+      <div class="lbl">Megjegyzés:</div>
+      <textarea name="megjegyzes"></textarea>
+    </div>
+    <div class="fixtures">
+      <div class="head-row"><div>Szerelvény Kihelyezés:</div><div>Szerelvény Töltés:</div></div>
+      <div class="row">
+        <div><span class="item">Monitoring:</span> <input class="cnt" type="text" name="kihelyezes_monitoring">db.</div>
+        <div><span class="item">Monitoring:</span> <input class="cnt" type="text" name="toltes_monitoring">db</div>
+      </div>
+      <div class="row">
+        <div><span class="item">Egér etető:</span> <input class="cnt" type="text" name="kihelyezes_eger">db.</div>
+        <div><span class="item">Egér etető:</span> <input class="cnt" type="text" name="toltes_eger">db</div>
+      </div>
+      <div class="row">
+        <div><span class="item">Patkányláda:</span> <input class="cnt" type="text" name="kihelyezes_patkany">db.</div>
+        <div><span class="item">Patkányláda:</span> <input class="cnt" type="text" name="toltes_patkany">db.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SIGNATURES -->
+  <div class="signs">
+    <div class="line">Munkavégző</div>
+    <div class="line">Munkavégzést igazoló</div>
+  </div>
+</section>
+
+<!-- ============================= PAGE 2 ============================= -->
+<section class="page p2" id="page-2">
+  <div class="page-number">2/2</div>
+
+  <header>
+    <div class="logo" aria-label="FEDORA-EXTRA logo">
+      <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <polygon points="10,25 90,25 50,80" fill="#fff"/>
+        <g stroke="#8a1518" stroke-width="3">
+          <line x1="50" y1="80" x2="30" y2="30"/>
+          <line x1="50" y1="80" x2="42" y2="30"/>
+          <line x1="50" y1="80" x2="50" y2="30"/>
+          <line x1="50" y1="80" x2="58" y2="30"/>
+          <line x1="50" y1="80" x2="70" y2="30"/>
+        </g>
+      </svg>
+    </div>
+    <div class="brand">
+      <h1>FEDORA-EXTRA KFT.</h1>
+      <div class="sub">Kártevőirtás és Fertőtlenítés</div>
+    </div>
+  </header>
+
+  <div class="p2-title">IRTÁS UTÁNI TEENDŐK – ÜGYFÉL TÁJÉKOZTATÓ</div>
+
+  <h2>1. ROVARIRTÁS UTÁNI TEENDŐK</h2>
+
+  <h3>Permetezés alkalmazása esetén</h3>
+  <ul>
+    <li>A kezelt területet a kezelés befejezését követően minimum 2–4 órán át zárva kell tartani.</li>
+    <li>A várakozási idő letelte után alapos szellőztetés szükséges (legalább 20–30 perc).</li>
+    <li>A kezelt felületek 48 óráig nem moshatók.</li>
+    <li>A kezelt helyeket takarással vagy tisztítással megbolygatni tilos.</li>
+    <li>Háziállatok és gyermekek csak teljes szellőztetés után vihetők vissza.</li>
+  </ul>
+
+  <h3>Géllel végzett csótányirtás esetén</h3>
+  <ul>
+    <li>A gélt nem szabad eltávolítani vagy lemosni.</li>
+    <li>A gél hatása 1–2 hét alatt teljesedik ki, a csótányok aktivitása átmenetileg fokozódhat.</li>
+    <li>Csótányfertőzöttség esetén az ismétlő kezelések között legfeljebb 3–4 hét telhet el.</li>
+  </ul>
+
+  <h3>Ágyi poloska irtása esetén</h3>
+  <ul>
+    <li>Az ágynemű huzat mosható, de legalább 60 °C-on, azonban a matrac és a bútorok tisztítását kerülni kell.</li>
+    <li>A kezelések között 7–10 napnál hosszabb idő nem hagyható ki, mivel az alkalmazott irtószerek hatástartama ezt az időintervallumot nem haladja meg.</li>
+    <li>Az ismétlő kezelések ajánlottak, a fertőzöttség mértékétől függően akár 3–4 alkalom is szükségessé válhat.</li>
+    <li>Hideg ködképző (ULV) technológia alkalmazása esetén a kezelt területre történő biztonságos visszatéréshez minimum 6 óra szükséges, ezt követően legalább 1 órán át intenzív szellőztetés javasolt.</li>
+  </ul>
+
+  <h2>2. RÁGCSÁLÓIRTÁS UTÁNI TEENDŐK</h2>
+  <h3>Általános előírások</h3>
+  <ul>
+    <li>A csalétkeket, etetődobozokat mozgatni, áthelyezni tilos.</li>
+    <li>Gyermekek és háziállatok nem férhetnek hozzá az etetőállomásokhoz.</li>
+    <li>Elhullott rágcsálók kezelése kesztyűben, kettős zacskóba zárva történjen.</li>
+  </ul>
+
+  <h2>3. ÁLTALÁNOS BIZTONSÁGI ELŐÍRÁSOK</h2>
+  <ul>
+    <li>A kihelyezett irtószerekhez és monitoring eszközökhöz csak a szolgáltató nyúlhat.</li>
+    <li>Élelmiszert a kezelt területekre kihelyezni tilos.</li>
+    <li>A véralvadásgátló hatású rágcsálóirtó szerek esetében mérgezéskor az ellenszer a K1-vitamin, melynek alkalmazásáról minden esetben orvos dönt.</li>
+  </ul>
+
+  <h2>4. ESETLEGES UTÓKEZELÉS</h2>
+  <ul>
+    <li>A fertőzöttség mértékétől függően az első kezelést követően kontroll vagy ismétlő kezelés szükséges lehet.</li>
+    <li>A csótányirtásnál az ismétlők között legfeljebb 3–4 hét telhet el.</li>
+    <li>Ágyi poloskánál az ismétlések 7–10 nap eltéréssel szükségesek.</li>
+    <li>Erős fertőzöttség esetén többszöri, akár 3–4 kezelés is indokolt lehet.</li>
+  </ul>
+
+  <div class="page-number bottom">2/2</div>
+</section>
+
+</body>
+</html>
