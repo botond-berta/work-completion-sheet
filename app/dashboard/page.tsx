@@ -8,10 +8,11 @@ import Link from "next/link";
 import { UserButton } from "@clerk/nextjs";
 import { formatDate } from "@/lib/format";
 import DeleteSheetButton from "./DeleteSheetButton";
+import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
   const { userId } = await auth();
-  if (!userId) return null;
+  if (!userId) redirect("/sign-in");
 
   const user = await db.query.users.findFirst({
     where: eq(users.clerkUserId, userId),
